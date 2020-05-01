@@ -11,6 +11,8 @@ import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
 import XYZ from "ol/source/XYZ";
 import { defaults as defaultControls, OverviewMap } from "ol/control";
+import { transform } from "ol/proj";
+
 import {
   vector,
   addInteraction,
@@ -62,8 +64,16 @@ export default {
         zoom: 7
       })
     });
-    // console.log(map);
     this.map = map;
+    // 根据鼠标事件获取当前的经纬度
+    map.on("click", $event => {
+      const lonlat = transform($event.coordinate, "EPSG:3857", "EPSG:4326");
+      //   console.log(lonlat);
+      this.$emit(
+        "map-click",
+        `${lonlat[0].toFixed(6)},${lonlat[1].toFixed(6)}`
+      );
+    });
   }
 };
 </script>

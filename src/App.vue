@@ -7,10 +7,10 @@
         <li @click="initDraw('area')">面积测量</li>
         <li @click="clean('clean')">清除</li>
         <li>坐标定位</li>
-        <li>坐标获取</li>
       </ul>
+      <span style="position:absolute;right:20px;top:15px;color:blue">坐标获取：{{mousePosition}}</span>
     </div>
-    <Map ref="map"/>
+    <Map ref="map" @map-click="mapClick" />
   </div>
 </template>
 
@@ -22,12 +22,20 @@ export default {
   components: {
     Map
   },
+  data: function() {
+    return {
+      mousePosition: ""
+    };
+  },
   methods: {
     initDraw: function($event) {
       this.$refs.map.$emit("initDraw", $event);
     },
     clean: function() {
       this.$refs.map.$emit("clean");
+    },
+    mapClick: function(evt) {
+      this.mousePosition = evt;
     }
   }
 };
@@ -88,7 +96,7 @@ ul {
 }
 .ol-tooltip-static {
   background-color: #6533ff;
-  color: #fff;;
+  color: #fff;
   border: 1px solid white;
 }
 .ol-tooltip-measure:before,

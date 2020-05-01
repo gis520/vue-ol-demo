@@ -1,4 +1,6 @@
-# vue-amap-demo
+# vue-ol-demo
+
+openlayers demo for vue
 
 ## Project setup
 ```
