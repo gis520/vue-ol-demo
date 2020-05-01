@@ -64,6 +64,7 @@ export default {
         zoom: 7
       })
     });
+    window.map = map;
     this.map = map;
     // 根据鼠标事件获取当前的经纬度
     map.on("click", $event => {

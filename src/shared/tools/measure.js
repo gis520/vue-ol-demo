@@ -6,6 +6,7 @@ import Overlay from 'ol/Overlay';
 import { Vector as VectorSource } from 'ol/source';
 import { getArea, getLength } from 'ol/sphere';
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+import { getLayersById } from '../utils';
 
 const source = new VectorSource();
 const vector = new VectorLayer({
@@ -261,6 +262,7 @@ function clearDrawOnMap(map) {
       map.removeOverlay(ovlay);
     });
   });
+  map.removeLayer(getLayersById('location_marker'));
 }
 
 export { addInteraction, vector, clearDrawOnMap };

@@ -6,25 +6,29 @@
         <li @click="initDraw('line')">长度测量</li>
         <li @click="initDraw('area')">面积测量</li>
         <li @click="clean('clean')">清除</li>
-        <li>坐标定位</li>
+        <li @click="showLocation=!showLocation">坐标定位</li>
       </ul>
       <span style="position:absolute;right:20px;top:15px;color:blue">坐标获取：{{mousePosition}}</span>
     </div>
     <Map ref="map" @map-click="mapClick" />
+    <Location v-if="showLocation" />
   </div>
 </template>
 
 <script>
 import Map from "./components/Map.vue";
+import Location from "./components/Location.vue";
 
 export default {
   name: "App",
   components: {
-    Map
+    Map,
+    Location
   },
   data: function() {
     return {
-      mousePosition: ""
+      mousePosition: "",
+      showLocation: false
     };
   },
   methods: {
@@ -33,6 +37,7 @@ export default {
     },
     clean: function() {
       this.$refs.map.$emit("clean");
+      this.showLocation = false;
     },
     mapClick: function(evt) {
       this.mousePosition = evt;
@@ -53,6 +58,7 @@ ul {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  position: relative;
   /* margin-top: 60px; */
 }
 .header {
